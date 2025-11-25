@@ -8,7 +8,30 @@ class EDAProcessor:
 
         self.df = df.copy()  # Always work on a copy to avoid modifying original
         self._prepare_date_column()  # Auto-clean date on init
+        
+        
+    def headline_length(self, column: str = 'headline', bins: int = 30, figsize=(10, 6)):
+        if column not in self.df.columns:
+            raise ValueError(f"Column '{column}' not found in DataFrame.")
 
+        # Compute headline lengths
+        self.df['headline_length'] = self.df[column].apply(len)
+
+        # Display basic statistics
+        print("Basic statistics for headline length:")
+        print(self.df['headline_length'].describe())
+
+        # Plot distribution
+        plt.figure(figsize=figsize)
+        sns.histplot(data=self.df, x='headline_length', bins=bins, kde=True, color='steelblue')
+        plt.title('Distribution of Headline Lengths', fontsize=10)
+        plt.xlabel('Headline Length')
+        plt.ylabel('Frequency')
+        plt.grid(alpha=0.3)
+        plt.tight_layout()
+        plt.show()
+
+        
     def publication_frequency(self, top_n: int = 10, show_print: bool = True, figsize=(10, 6)):
       
         if 'publisher' not in self.df.columns:
@@ -53,7 +76,7 @@ class EDAProcessor:
         daily_counts = self.df.groupby(self.df['date'].dt.date).size().reset_index(name='article_count')
         daily_counts['date'] = pd.to_datetime(daily_counts['date'])
 
-        plt.figure(figsize=(14, 6))
+        plt.figure(figsize=(10, 6))
         sns.lineplot(data=daily_counts, x='date', y='article_count', color='steelblue', linewidth=2)
         plt.title('Articles Published Over Time (Daily)', fontsize=16, fontweight='bold')
         plt.xlabel('Date')
@@ -69,7 +92,7 @@ class EDAProcessor:
         monthly_counts = self.df.groupby('month').size().reset_index(name='article_count')
         monthly_counts['rolling_avg'] = monthly_counts['article_count'].rolling(window=rolling_window).mean()
 
-        plt.figure(figsize=(14, 6))
+        plt.figure(figsize=(10, 6))
         sns.lineplot(data=monthly_counts, x='month', y='article_count', 
                      label='Monthly Count', color='royalblue', linewidth=2)
         sns.lineplot(data=monthly_counts, x='month', y='rolling_avg', 
@@ -89,7 +112,7 @@ class EDAProcessor:
         self.df['year'] = self.df['date'].dt.year
         yearly_counts = self.df.groupby('year').size().reset_index(name='article_count')
 
-        plt.figure(figsize=(12, 6))
+        plt.figure(figsize=(10, 6))
         sns.lineplot(data=yearly_counts, x='year', y='article_count', 
                      marker='o', markersize=8, color='darkgreen', linewidth=3)
         plt.title('Articles Published Over Time (Yearly)', fontsize=16, fontweight='bold')
@@ -99,5 +122,3 @@ class EDAProcessor:
         plt.grid(True, alpha=0.3)
         plt.tight_layout()
         plt.show() 
-        
-    
