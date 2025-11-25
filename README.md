@@ -1,91 +1,75 @@
-
-# Predicting Price Moves with News Sentiment (FNSPID)
+# NOVA-FINANCIAL-SOLUTIONS-WEEK1  
+**Predicting Stock Price Movements Using News Sentiment (FNSPID Dataset)**
 ## Project Overview
-This project aims to analyze financial news and stock price movements using the **FNSPID dataset**. The ultimate goal is to leverage news sentiment to predict price moves, supporting **Nova Financial Solutions** in enhancing predictive analytics for **financial forecasting accuracy** and **operational efficiency**.
+This repository contains **Week 1 deliverables** for analyzing the relationship between financial news sentiment and stock price movements using the **FNSPID (Financial News and Stock Price Integration Dataset)**.
 
-## Business Objective
-- Improve **forecasting accuracy** by integrating sentiment signals with price-based features.
-- Support **operational efficiency** through automated data ingestion, processing, and reporting.
-- Deliver actionable insights for **event-driven and momentum strategies**.
+The core objective is to determine whether news headline sentiment can serve as a predictive signal — alone or in combination with technical indicators — to improve short-term price forecasting accuracy.
 
+## Business Value (Nova Financial Solutions)
+- Enhance **predictive analytics** capabilities
+- Support **event-driven** and **momentum-based** trading strategies
+- Build a **reproducible, scalable analytics pipeline**
 
-## Executive Summary
-This interim report outlines progress on analyzing financial news and stock price movements using the FNSPID dataset. The project goal is explicitly tied to Nova Financial Solutions' business objective: enhancing predictive analytics for financial forecasting accuracy and operational efficiency.
+## Week 1 Accomplishments
+- Exploratory Data Analysis (EDA) on 1.9M+ financial news headlines
+- Technical analysis on major tickers (AAPL, NVDA, META, etc.)
+- Initial sentiment scoring and correlation analysis with daily returns
 
-Week-1 work includes:
-- **EDA on news headlines**
-- **Technical analysis on stock data**
-- **Initial sentiment correlation findings**
-
-
-## Methodology
-The methodology aligns with the FNSPID dataset and project scope, ensuring clarity and relevance:
-- **Environment Setup:** Python virtual environment with `pandas`, `numpy`, `matplotlib`, `seaborn`, `TA-Lib`, and `TextBlob` installed.
-- **Repository Structure:** Organized into `data/`, `notebooks/`, and `scripts/` folders for reproducibility.
-- **Data Loading & Cleaning:** Imported FNSPID dataset, standardized column names, parsed timestamps, and handled missing values.
-- **News EDA:** Analyzed headline lengths, publisher activity, keyword frequency, and publication trends.
-- **Stock Analysis:** Applied technical indicators (SMA, EMA, RSI, MACD) and calculated performance metrics (Annualized Return, Volatility, Sharpe Ratio).
-- **Sentiment Analysis:** Computed polarity scores for headlines using TextBlob, aggregated daily sentiment, and merged with stock returns.
-- **Correlation Analysis:** Calculated Pearson correlation between sentiment scores and daily returns for each ticker.
-
-## Findings
-### **Task 1: News EDA**
-- Headlines are concise (40–100 characters).
-- Publisher activity is concentrated, with **Benzinga Newsdesk** and **Paul Quintaro** dominating.
-- Publication surged post-2019, peaking in 2020.
-- Keywords like *stocks*, *market*, and *earnings* dominate, indicating strong equity market focus.
-
-### **Task 2: Stock Technical Analysis**
-- **AAPL** shows a strong upward trend from 2010–2024, confirmed by SMA and EMA.
-- RSI oscillates between 30–70, signaling overbought/oversold conditions.
-- MACD divergences highlight trend reversals during volatility spikes.
-- **NVDA** leads in returns (~60%) but with high volatility (~45%).
-- Sharpe ratios >1.2 for AAPL and NVDA indicate strong risk-adjusted performance.
-
-### **Task 3: Sentiment Correlation Analysis**
-- Initial sentiment analysis using TextBlob shows polarity scores mostly between -0.2 and 0.3.
-- Correlation between daily sentiment and returns is weak overall (close to zero).
-- META and NVDA exhibit slight positive correlation during high-volatility periods.
-- Suggests sentiment alone is insufficient for predicting daily returns but may complement other signals.
-
+## Key Findings (Week 1)
+- News volume surged after 2019, peaking in 2020
+- Top publishers: **Benzinga Newsdesk**, **Paul Quintaro**
+- Dominant keywords: *stocks, earnings, shares, market*
+- Strong long-term uptrends in **AAPL** and **NVDA** confirmed by SMA/EMA
+- **NVDA** delivers highest returns (~60% annualized) but with high volatility (~45%)
+- Daily sentiment–return correlation is **weak overall (~0 to ±0.08)**
+- Slight positive correlation observed in **META** and **NVDA** during high-volatility periods → sentiment may act as a **complementary signal**
 
 ## Repository Structure
 ```bash
-fnspid/
-├─ data/                     # Raw and processed datasets
-├─ github/                   # GitHub workflows or related configs
-├─ notebooks/                # Jupyter notebooks for analysis
+NOVA-FINANCIAL-SOLUTIONS-WEEK1/
+├─ data/                     # Raw & processed data (not tracked in Git)
+├─ github/                   # GitHub Actions / workflows
+├─ notebooks/                # Week 1 Jupyter notebooks
 │   ├─ __init__.py
-│   ├─ correlation_analysis.ipynb      # Sentiment vs stock returns correlation
-│   ├─ descriptive_analysis_eda.ipynb  # News EDA and descriptive statistics
-│   ├─ quant_analysis.ipynb            # Stock technical indicators and metrics
-│   └─ sentiment_stock_correlation.xlsx # Exported correlation results
-├─ scripts/                  # Reserved for reusable scripts (currently empty)
-├─ src/                      # Source code for data processing and utilities
+│   ├─ correlation_analysis.ipynb
+│   ├─ eda_analysis.ipynb
+│   ├─ publisher_analysis.ipynb
+│   ├─ quant_analysis.ipynb
+│   ├─ text_analysis.ipynb
+│   └─ time_series_analysis.ipynb
+├─ scripts/                  # Automation scripts (future use)
 │   ├─ __init__.py
-│   ├─ data_cleaner.py       # Functions for cleaning datasets
-│   ├─ data_load.py          # Data loading utilities
-│   └─ data_loader.py        # Additional loader functions
-├─ tests/                    # Unit tests for scripts and modules
-├─ venv/                     # Virtual environment (excluded via .gitignore)
-├─ vscode/                   # VS Code workspace settings
-├─ .gitignore                # Ignore rules for unnecessary files
-├─ README.md                 # Project documentation
-└─ requirements.txt          # Python dependencies
-```
+│   └─ README.md
+├─ src/                      # Reusable source code
+│   ├─ __pycache__/
+│   ├─ __init__.py
+│   ├─ eda_processor.py
+│   └─ README.md
+├─ tests/                    # Unit tests (to be implemented)
+├─ venv/                     # Virtual environment (gitignored)
+├─ vscode/                   # VS Code settings
+├─ .gitignore
+├─ .settings.json
+├─ LICENSE
+├─ README.md                 # This file
+├─ requirements.txt
+└─ requirements.txt.txt      # (duplicate – can be deleted)
+
+
 
 ## Setup & Installation
 ```bash
-# 1) Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate        # Linux/macOS
-# .venv\Scripts\activate        # Windows
+# Clone repository
+git clone https://github.com/gashawbekele06/NOVA-FINANCIAL-SOLUTIONS-WEEK1.git
+cd NOVA-FINANCIAL-SOLUTIONS-WEEK1
 
-# 2) Install dependencies
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate        # Linux/macOS
+# venv\Scripts\activate         # Windows
+
+# Install dependencies
 pip install -r requirements.txt
-
-# Optional: TA-Lib (if available in your environment)
-# pip install TA-Lib
 ```
 
 ## Dependencies
